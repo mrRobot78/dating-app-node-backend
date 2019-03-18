@@ -165,7 +165,6 @@ export function update(req, res) {
   async.waterfall([
       function(done) {
         console.log('update', req.body);
-        console.log('update', req.authData);
         const user = {
           Name: req.body.name,
           Gender: req.body.gender,
@@ -174,8 +173,7 @@ export function update(req, res) {
           School: req.body.school,
           Company: req.body.company,
           Job: req.body.job,
-          AboutMe: req.body.AboutMe,
-          locality: req.body.locality
+          AboutMe: req.body.AboutMe
         };
         if (!user.InterestedIn) {
           delete user.InterestedIn;
@@ -340,6 +338,7 @@ exports.GetUserDataByMobileNumber = function (req, res, next) {
  Users.findOne({ MobileNumber: req.params.MobileNumber}).exec((err, user) => {
       if (err) return res.status(201).json({ success: false, message: 'Something went worng!' });
       if (!user) return res.status(201).json({ success: false, message: 'Not Found!' });
+      console.log(user)
       return res.status(200).send(user);
     });
 };
