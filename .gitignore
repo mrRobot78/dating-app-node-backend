@@ -1,0 +1,17 @@
+node_modules
+public
+.tmp
+.sass-cache
+.idea
+client/bower_components
+client/app.html
+dist
+/server/config/local.env.js
+npm-debug.log
+coverage
+.env
+logs
+package-lock.json
+server/api/swagger
+logic
+home.env
