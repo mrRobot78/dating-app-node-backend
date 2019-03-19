@@ -164,7 +164,6 @@ export function create(req, res) {
 export function update(req, res) {
   async.waterfall([
       function(done) {
-        console.log('update', req.body);
         const user = {
           Name: req.body.name,
           Gender: req.body.gender,
@@ -236,7 +235,6 @@ export function update(req, res) {
 }
 
 export function updateUserLocality(req, res) {
-  console.log('updateUserLocality')
    Users.findOne({MobileNumber: req.params.MobileNumber}).exec(function(err, user) {
       if (err) return handleError(res, err);
       if (!user) return res.status(403).send('User does not exist!'); // Return error if username is not found in database
@@ -282,7 +280,6 @@ export function get(req, res) {
 
 
 export function userOTP(req, res) {
-  console.log(req.body);
   if (req.body.isSendOTP) {
     // const OTP = Math.floor(1000 + Math.random() * 9000);
     // RedisClient.set(`OTP${req.body.code}${req.body.phone}`, OTP, (err, reply) => {
@@ -300,7 +297,6 @@ export function userOTP(req, res) {
     }, { headers: { 'X-Authy-API-Key': 'Tdzm51468GNJZO07rvzLIy0Ljb8T60Lc' } })
       .then(response => res.send({ status: true, msg: 'OTP is send on Phone number', data: req.body }))
       .catch((err) => {
-        console.log(err);
         return res.send({ status: false, msg: 'Something went wrong', data: err });
       });
 
@@ -338,7 +334,6 @@ exports.GetUserDataByMobileNumber = function (req, res, next) {
  Users.findOne({ MobileNumber: req.params.MobileNumber}).exec((err, user) => {
       if (err) return res.status(201).json({ success: false, message: 'Something went worng!' });
       if (!user) return res.status(201).json({ success: false, message: 'Not Found!' });
-      console.log(user)
       return res.status(200).send(user);
     });
 };
@@ -350,14 +345,12 @@ export function updatePassword(req, res) {
   // DB.ref(`server/users/${req.body.phone}`).update(user);
   const condition = { MobileNumber: req.body.phone };
   Users.findOneAndUpdate(condition, user).then((result) => {
-    console.log(result);
     return res.send({ status: true, msg: 'Password Updated Successfully' });
   }).catch((err) => {
     console.log(err);
   });
 }
 export function updateImage(req, res) {
-  console.log('here', req.body);
   req.body.fromWhere = 'user';
   setData(req, res);
 }

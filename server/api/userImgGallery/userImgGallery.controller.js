@@ -95,17 +95,18 @@ exports.GetImageById = function(req, res, next) {
  
 // Delete one image by its ID
 exports.deleteImgById = function(req, res, next) {
-    let imgId = req.params.id;
- 
-    UserImgGallery.findByIdAndRemove(imgId, (err, image) => {
-        if (err) return handleError(res, err);
-        if (!image)return handleEntityNotFound(res, 'Image');
- 
-        del([path.join(__dirname + UPLOAD_PATH, image.filename)]).then(deleted => {
-            return res.status(200).send({message: 'User is successfully Deleted...'});
-        })
-    })
+    let imgId = req.params.imgId;
+    let MobileNumber = req.params.MobileNumber;
+    User.update({MobileNumber: MobileNumber}, { $pull: {"Images": { "imgId": imgId}}})
+        .exec()
+        .then(dashboardDoc => {
+            del([path.join(__dirname + UPLOAD_PATH, req.body.filename)]).then(deleted => {
+                return res.status(200).send({success: true, message: 'User is successfully Deleted...'});
+            })
+    });
 }
+
+ 
 
 
 /*---------------------------------Error handler-----------------------------------------------------*/
