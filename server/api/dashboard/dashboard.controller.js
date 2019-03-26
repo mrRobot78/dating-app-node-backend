@@ -79,11 +79,12 @@ export function profile(req, res) {
 }
 
 
-
 exports.GetAllUser = function(req, res) {
     Users.find({}, (err, user) => {
       if (err)return res.status(403).send(err);
       if (!user) return res.status(201).json({ success: false, message: 'Not Found!' });
+      const index = user.findIndex(obj => obj.MobileNumber === req.params.MobileNumber);
+      user.splice(index, 1);
       return res.status(200).json({ success: true, user });
     })
 };
