@@ -18,6 +18,20 @@ const userSchema = mongoose.Schema({
       CountryFlag: { type: String },
       CountryLanguage: { type: String }
   },
+  
+  LanguageFirst: {
+    CountryCode: { type: String },
+    CountryName: { type: String },
+    CountryFlag: { type: String },
+    CountryLanguage: { type: String },
+  },
+
+  LanguageSecond: {
+    CountryCode: { type: String },
+    CountryName: { type: String },
+    CountryFlag: { type: String },
+    CountryLanguage: { type: String },
+  },
 
   AboutMe: { type: String },
 

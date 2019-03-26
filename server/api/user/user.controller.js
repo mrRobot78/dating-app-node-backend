@@ -161,6 +161,7 @@ export function create(req, res) {
   //   return res.send({ status: false, msg: 'Profile is not created please try again', data: null });
   // });
 }
+
 export function update(req, res) {
   async.waterfall([
       function(done) {
@@ -239,12 +240,16 @@ export function updateUserLocality(req, res) {
       if (err) return handleError(res, err);
       if (!user) return res.status(403).send('User does not exist!'); // Return error if username is not found in database
         user.locality = req.body.locality; 
+        user.LanguageFirst = req.body.LanguageFirst; 
+        user.LanguageSecond = req.body.LanguageSecond; 
         user.save(function(err) {
           if (err) return handleError(res, err);
             return res.status(200).send({status: true, message: 'User has been successfully updated.' }); // Return success message
         });
     });
 }
+
+
 
 export function get(req, res) {
   // Users.findById(req.authData._id, { _id: 0, Password: 0, IsActive: 0 }).then((user) => {
@@ -350,6 +355,8 @@ export function updatePassword(req, res) {
     console.log(err);
   });
 }
+
+
 export function updateImage(req, res) {
   req.body.fromWhere = 'user';
   setData(req, res);

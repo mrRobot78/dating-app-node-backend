@@ -8,7 +8,7 @@ router.get('/:MobileNumber', controller.GetUserDataByMobileNumber); // no authri
 router.post('/', controller.create); // no authrization
 
 router.patch('/', isAuthenticated.isAuthenticated, controller.update);
-router.patch('/update-user-locality/:MobileNumber', isAuthenticated.isAuthenticated, controller.updateUserLocality);
+router.patch('/update-user-locality/:MobileNumber', controller.updateUserLocality);
 router.post('/otp', controller.userOTP); // no authrization
 router.patch('/updatepassword', controller.updatePassword); // no authrization
 router.get('/', controller.get);
